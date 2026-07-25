@@ -7,6 +7,7 @@ namespace AssistenciaTec
     {
 
         private FrmClientes frmClientes = null;
+        private FrmTecnicos frmTecnicos = null;
 
         public FrmPrincipal()
         {
@@ -61,6 +62,28 @@ namespace AssistenciaTec
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void técnicosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmTecnicos == null || frmTecnicos.IsDisposed)
+            {
+                frmTecnicos = new FrmTecnicos();
+                frmTecnicos.MdiParent = this;
+                frmTecnicos.Show();
+            }
+            else
+            {
+                if (frmTecnicos.WindowState == FormWindowState.Minimized)
+                {
+                    frmTecnicos.WindowState = FormWindowState.Normal;
+                }
+            }
         }
     }
 }

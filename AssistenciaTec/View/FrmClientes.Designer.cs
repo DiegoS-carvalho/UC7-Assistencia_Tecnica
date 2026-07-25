@@ -31,6 +31,9 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClientes));
             GroupBoxDadosCliente = new GroupBox();
+            LblErroEndereco = new Label();
+            LblErroTelefone = new Label();
+            LblErroEmail = new Label();
             LblErroNome = new Label();
             TxtEndereco = new TextBox();
             label5 = new Label();
@@ -58,9 +61,6 @@
             pictureBox1 = new PictureBox();
             label7 = new Label();
             errorProvider1 = new ErrorProvider(components);
-            LblErroEmail = new Label();
-            LblErroTelefone = new Label();
-            LblErroEndereco = new Label();
             GroupBoxDadosCliente.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DatagridViewClientes).BeginInit();
@@ -93,6 +93,42 @@
             GroupBoxDadosCliente.TabIndex = 0;
             GroupBoxDadosCliente.TabStop = false;
             GroupBoxDadosCliente.Text = "Dados do cliente:";
+            // 
+            // LblErroEndereco
+            // 
+            LblErroEndereco.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroEndereco.ForeColor = Color.Red;
+            LblErroEndereco.Location = new Point(133, 436);
+            LblErroEndereco.Name = "LblErroEndereco";
+            LblErroEndereco.Size = new Size(156, 15);
+            LblErroEndereco.TabIndex = 13;
+            LblErroEndereco.Text = "Nome é obrigatório.";
+            LblErroEndereco.TextAlign = ContentAlignment.MiddleRight;
+            LblErroEndereco.Visible = false;
+            // 
+            // LblErroTelefone
+            // 
+            LblErroTelefone.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroTelefone.ForeColor = Color.Red;
+            LblErroTelefone.Location = new Point(30, 281);
+            LblErroTelefone.Name = "LblErroTelefone";
+            LblErroTelefone.Size = new Size(156, 15);
+            LblErroTelefone.TabIndex = 12;
+            LblErroTelefone.Text = "Nome é obrigatório.";
+            LblErroTelefone.TextAlign = ContentAlignment.MiddleRight;
+            LblErroTelefone.Visible = false;
+            // 
+            // LblErroEmail
+            // 
+            LblErroEmail.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroEmail.ForeColor = Color.Red;
+            LblErroEmail.Location = new Point(133, 214);
+            LblErroEmail.Name = "LblErroEmail";
+            LblErroEmail.Size = new Size(156, 15);
+            LblErroEmail.TabIndex = 11;
+            LblErroEmail.Text = "Nome é obrigatório.";
+            LblErroEmail.TextAlign = ContentAlignment.MiddleRight;
+            LblErroEmail.Visible = false;
             // 
             // LblErroNome
             // 
@@ -161,6 +197,7 @@
             TxtNome.Name = "TxtNome";
             TxtNome.Size = new Size(271, 25);
             TxtNome.TabIndex = 3;
+            TxtNome.TextChanged += TxtNome_TextChanged;
             // 
             // label3
             // 
@@ -173,7 +210,7 @@
             // 
             // LabelId
             // 
-            LabelId.BackColor = Color.FromArgb(255, 192, 128);
+            LabelId.BackColor = Color.Azure;
             LabelId.Font = new Font("Consolas", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LabelId.Location = new Point(156, 42);
             LabelId.Name = "LabelId";
@@ -350,42 +387,6 @@
             // 
             errorProvider1.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
             errorProvider1.ContainerControl = this;
-            // 
-            // LblErroEmail
-            // 
-            LblErroEmail.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblErroEmail.ForeColor = Color.Red;
-            LblErroEmail.Location = new Point(133, 214);
-            LblErroEmail.Name = "LblErroEmail";
-            LblErroEmail.Size = new Size(156, 15);
-            LblErroEmail.TabIndex = 11;
-            LblErroEmail.Text = "Nome é obrigatório.";
-            LblErroEmail.TextAlign = ContentAlignment.MiddleRight;
-            LblErroEmail.Visible = false;
-            // 
-            // LblErroTelefone
-            // 
-            LblErroTelefone.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblErroTelefone.ForeColor = Color.Red;
-            LblErroTelefone.Location = new Point(30, 281);
-            LblErroTelefone.Name = "LblErroTelefone";
-            LblErroTelefone.Size = new Size(156, 15);
-            LblErroTelefone.TabIndex = 12;
-            LblErroTelefone.Text = "Nome é obrigatório.";
-            LblErroTelefone.TextAlign = ContentAlignment.MiddleRight;
-            LblErroTelefone.Visible = false;
-            // 
-            // LblErroEndereco
-            // 
-            LblErroEndereco.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblErroEndereco.ForeColor = Color.Red;
-            LblErroEndereco.Location = new Point(133, 436);
-            LblErroEndereco.Name = "LblErroEndereco";
-            LblErroEndereco.Size = new Size(156, 15);
-            LblErroEndereco.TabIndex = 13;
-            LblErroEndereco.Text = "Nome é obrigatório.";
-            LblErroEndereco.TextAlign = ContentAlignment.MiddleRight;
-            LblErroEndereco.Visible = false;
             // 
             // FrmClientes
             // 

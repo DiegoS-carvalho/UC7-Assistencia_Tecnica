@@ -12,76 +12,78 @@ using System.Windows.Forms;
 
 namespace AssistenciaTec.View
 {
-    public partial class FrmClientes : Form
+    public partial class FrmTecnicos : Form
     {
-
-        private List<Cliente> clientes = new List<Cliente>();
-
-        public FrmClientes()
+        private List<Tecnico> tecnicos = new List<Tecnico>();
+        public FrmTecnicos()
         {
             InitializeComponent();
             DesabilitarBotoesCancelarSalvar();
-            CarregarGridClientes();
+            CarregarGridTecnicos();
         }
 
-        private void CarregarGridClientes()
+
+
+        private void TxtNome_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void CarregarGridTecnicos()
         {
             // Criar o repositório
-            ClienteRepository clienteRepository = new ClienteRepository();
+            TecnicoRepository tecnicoRepository = new TecnicoRepository();
 
             // Obter a lista do repositório
-            clientes = clienteRepository.ListarTodos();
+            tecnicos = tecnicoRepository.ListarTodos();
 
             // Carregar o DatagridView com os dados
-            DatagridViewClientes.Columns.Clear();
-            DatagridViewClientes.AutoGenerateColumns = false;
+            DatagridViewTecnicos.Columns.Clear();
+            DatagridViewTecnicos.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn colunaId = new DataGridViewTextBoxColumn();
             colunaId.DataPropertyName = "Id";
             colunaId.HeaderText = "Código";
             colunaId.Width = 80;
-            DatagridViewClientes.Columns.Add(colunaId);
+            DatagridViewTecnicos.Columns.Add(colunaId);
 
             DataGridViewTextBoxColumn colunaNome = new DataGridViewTextBoxColumn();
             colunaNome.DataPropertyName = "Nome";
-            colunaNome.HeaderText = "Nome do cliente";
+            colunaNome.HeaderText = "Nome do Tecnico";
             colunaNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DatagridViewClientes.Columns.Add(colunaNome);
+            DatagridViewTecnicos.Columns.Add(colunaNome);
 
             // Informar de onde vem os dados da datagridview
-            DatagridViewClientes.DataSource = clientes;
+            DatagridViewTecnicos.DataSource = tecnicos;
 
         }
-
-        private void CarregarGridClientes(string nome)
+        private void CarregarGridTecnicos(string nome)
         {
             // Criar o repositório
-            ClienteRepository clienteRepository = new ClienteRepository();
+            TecnicoRepository tecnicoRepository = new TecnicoRepository();
 
             // Obter a lista do repositório
-            clientes = clienteRepository.ListarPorNome(nome);
+            tecnicos = tecnicoRepository.ListarPorNome(nome);
 
             // Carregar o DatagridView com os dados
-            DatagridViewClientes.Columns.Clear();
-            DatagridViewClientes.AutoGenerateColumns = false;
+            DatagridViewTecnicos.Columns.Clear();
+            DatagridViewTecnicos.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn colunaId = new DataGridViewTextBoxColumn();
             colunaId.DataPropertyName = "Id";
             colunaId.HeaderText = "Código";
             colunaId.Width = 80;
-            DatagridViewClientes.Columns.Add(colunaId);
+            DatagridViewTecnicos.Columns.Add(colunaId);
 
             DataGridViewTextBoxColumn colunaNome = new DataGridViewTextBoxColumn();
             colunaNome.DataPropertyName = "Nome";
-            colunaNome.HeaderText = "Nome do cliente";
+            colunaNome.HeaderText = "Nome do Tecnico";
             colunaNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DatagridViewClientes.Columns.Add(colunaNome);
+            DatagridViewTecnicos.Columns.Add(colunaNome);
 
             // Informar de onde vem os dados da datagridview
-            DatagridViewClientes.DataSource = clientes;
+            DatagridViewTecnicos.DataSource = tecnicos;
 
         }
-
         private void DesabilitarBotoesCancelarSalvar()
         {
             toolStripButtonNovo.Enabled = true;
@@ -128,20 +130,21 @@ namespace AssistenciaTec.View
             DesabilitarBotoesCancelarSalvar();
         }
 
+
         private void toolStripButtonSalvar_Click(object sender, EventArgs e)
         {
             // Criar um objeto Cliente
-            Cliente cliente = new Cliente();
+            Tecnico tecnico = new Tecnico();
 
             errorProvider1.Clear();
             limparControlesPreenchidos();
 
             try
             {
-                cliente.Nome = TxtNome.Text;
-                cliente.Telefone = TxtTelefone.Text;
-                cliente.Email = TxtEmail.Text;
-                cliente.Endereco = TxtEndereco.Text;
+                tecnico.Nome = TxtNome.Text;
+                tecnico.Telefone = TxtTelefone.Text;
+                tecnico.Email = TxtEmail.Text;
+                tecnico.Especialidade = TxtEndereco.Text;
             }
             catch (ArgumentException erro)
             {
@@ -151,7 +154,7 @@ namespace AssistenciaTec.View
                     TxtNome.BackColor = Color.Yellow;
                     LblErroNome.Visible = true;
                 }
-                else if (erro.ParamName == "Endereco") // ou "Endereço", ajuste conforme o nome do parâmetro na sua exceção
+                else if (erro.ParamName == "Especialidade") // ou "Endereço", ajuste conforme o nome do parâmetro na sua exceção
                 {
                     errorProvider1.SetError(TxtEndereco, "Este campo é obrigatório");
                     TxtEndereco.BackColor = Color.Yellow;
@@ -176,33 +179,34 @@ namespace AssistenciaTec.View
             errorProvider1.Clear();
 
             // Criar um repositório de cliente
-            ClienteRepository clienteRepository = new ClienteRepository();
+            TecnicoRepository tecnicoRepository = new TecnicoRepository();
 
             if (LabelId.Text == String.Empty)
             {
-                var clienteId = clienteRepository.Salvar(cliente);
-                LabelId.Text = clienteId.ToString();
+                var tecnicoId = tecnicoRepository.Salvar(tecnico);
+                LabelId.Text = tecnicoId.ToString();
                 MessageBox.Show(
-                    "Cliente criado com sucesso!",
-                    "Cadastro de cliente",
+                    "Tecnico criado com sucesso!",
+                    "Cadastro de Tecnico",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
             }
             else
             {
-                cliente.Id = int.Parse(LabelId.Text);
-                clienteRepository.atualizar(cliente);
+                tecnico.Id = int.Parse(LabelId.Text);
+                tecnicoRepository.atualizar(tecnico);
                 MessageBox.Show(
-                    "Cliente atualizado com sucesso!",
-                    "Atualização de cliente",
+                    "Tecnico atualizado com sucesso!",
+                    "Atualização de Tecnico",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
             }
 
             DesabilitarBotoesCancelarSalvar();
-            CarregarGridClientes();
+            CarregarGridTecnicos();
+
         }
 
         private void limparControlesPreenchidos()
@@ -213,17 +217,13 @@ namespace AssistenciaTec.View
                 TxtNome.BackColor = Color.White;
                 LblErroNome.Visible = false;
             }
-
-
-
         }
-
-        private void DatagridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DatagridViewTecnicos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             exibirDetalhesDoCliente(e);
         }
 
-        private void DatagridViewClientes_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void DatagridViewTecnicos_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             exibirDetalhesDoCliente(e);
         }
@@ -238,14 +238,14 @@ namespace AssistenciaTec.View
             }
 
             // Recuperar os dados da linha que foi clicada
-            var linhaSelecionada = DatagridViewClientes.Rows[linha];
-            var clienteSelecionado = linhaSelecionada.DataBoundItem as Cliente;
+            var linhaSelecionada = DatagridViewTecnicos.Rows[linha];
+            var tecnicoSelecionado = linhaSelecionada.DataBoundItem as Tecnico;
 
-            LabelId.Text = clienteSelecionado.Id.ToString();
-            TxtNome.Text = clienteSelecionado.Nome;
-            TxtEmail.Text = clienteSelecionado.Email;
-            TxtEndereco.Text = clienteSelecionado.Endereco;
-            TxtTelefone.Text = clienteSelecionado.Telefone;
+            LabelId.Text = tecnicoSelecionado.Id.ToString();
+            TxtNome.Text = tecnicoSelecionado.Nome;
+            TxtEmail.Text = tecnicoSelecionado.Email;
+            TxtEndereco.Text = tecnicoSelecionado.Especialidade;
+            TxtTelefone.Text = tecnicoSelecionado.Telefone;
         }
 
         private void toolStripButtonExcluir_Click(object sender, EventArgs e)
@@ -260,10 +260,10 @@ namespace AssistenciaTec.View
 
             if (resposta == DialogResult.Yes)
             {
-                var clienteRepository = new ClienteRepository();
+                var tecnicoRepository = new TecnicoRepository();
                 var idSelecionado = int.Parse(LabelId.Text);
 
-                var excluidos = clienteRepository.excluir(idSelecionado);
+                var excluidos = tecnicoRepository.excluir(idSelecionado);
 
                 if (excluidos > 0)
                 {
@@ -273,19 +273,15 @@ namespace AssistenciaTec.View
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    CarregarGridClientes();
+                    CarregarGridTecnicos();
+                    LimparCampos();
                 }
             }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CarregarGridClientes(TxtBuscarPorNome.Text);
-        }
-
-        private void TxtNome_TextChanged(object sender, EventArgs e)
-        {
-
+            CarregarGridTecnicos(TxtBuscarPorNome.Text);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AssistenciaTec.Data
 {
     public class Conexao
     {
-        private static readonly string ConexaoString = @"Server=OSA0716396W11-1\SQLEXPRESS;Database=db_assistencia;Trusted_Connection=True;TrustServerCertificate=True;";
+        private static readonly string ConexaoString = @"Server=OSA0716387W11-1\SQLEXPRESS;Database=db_assistencia;Trusted_Connection=True;TrustServerCertificate=True;";
 
        public static SqlConnection GetConexao()
         {
